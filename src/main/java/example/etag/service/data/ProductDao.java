@@ -15,6 +15,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 /**
  * Product data access layer.
@@ -49,6 +51,9 @@ public class ProductDao {
 
                 try (ResultSet rs = ps.executeQuery()) {
                     if (rs.next()) {
+                        NumberFormat usdFormatter = NumberFormat.getCurrencyInstance(Locale.US);
+                        NumberFormat cadFormatter = NumberFormat.getCurrencyInstance(Locale.CANADA);
+
                         Product product = new Product();
                         product.setProductId(rs.getString("id"));
                         product.setProductType(ProductType.get(rs.getInt("type")));
@@ -73,14 +78,21 @@ public class ProductDao {
                         pricesUsd.setList(rs.getDouble("usd_list"));
                         pricesUsd.setMsrp(rs.getDouble("usd_msrp"));
                         pricesUsd.setSale(rs.getDouble("usd_sale"));
+                        pricesUsd.setFormattedList(usdFormatter.format(rs.getDouble("usd_list")));
+                        pricesUsd.setFormattedMsrp(usdFormatter.format(rs.getDouble("usd_msrp")));
+                        pricesUsd.setFormattedSale(usdFormatter.format(rs.getDouble("usd_sale")));
+
+                        sku.getPrices().putIfAbsent(pricesUsd.getCurrency(), pricesUsd);
 
                         Prices pricesCad = new Prices();
                         pricesCad.setCurrency("CAD");
                         pricesCad.setList(rs.getDouble("cad_list"));
                         pricesCad.setMsrp(rs.getDouble("cad_msrp"));
                         pricesCad.setSale(rs.getDouble("cad_sale"));
+                        pricesCad.setFormattedList(cadFormatter.format(rs.getDouble("cad_list")));
+                        pricesCad.setFormattedMsrp(cadFormatter.format(rs.getDouble("cad_msrp")));
+                        pricesCad.setFormattedSale(cadFormatter.format(rs.getDouble("cad_sale")));
 
-                        sku.getPrices().putIfAbsent(pricesUsd.getCurrency(), pricesUsd);
                         sku.getPrices().putIfAbsent(pricesCad.getCurrency(), pricesCad);
 
                         product.getSkus().add(sku);
@@ -99,14 +111,21 @@ public class ProductDao {
                             pricesUsd2.setList(rs.getDouble("usd_list"));
                             pricesUsd2.setMsrp(rs.getDouble("usd_msrp"));
                             pricesUsd2.setSale(rs.getDouble("usd_sale"));
+                            pricesUsd2.setFormattedList(usdFormatter.format(rs.getDouble("usd_list")));
+                            pricesUsd2.setFormattedMsrp(usdFormatter.format(rs.getDouble("usd_msrp")));
+                            pricesUsd2.setFormattedSale(usdFormatter.format(rs.getDouble("usd_sale")));
+
+                            sku2.getPrices().putIfAbsent(pricesUsd2.getCurrency(), pricesUsd2);
 
                             Prices pricesCad2 = new Prices();
                             pricesCad2.setCurrency("CAD");
                             pricesCad2.setList(rs.getDouble("cad_list"));
                             pricesCad2.setMsrp(rs.getDouble("cad_msrp"));
                             pricesCad2.setSale(rs.getDouble("cad_sale"));
+                            pricesCad2.setFormattedList(cadFormatter.format(rs.getDouble("cad_list")));
+                            pricesCad2.setFormattedMsrp(cadFormatter.format(rs.getDouble("cad_msrp")));
+                            pricesCad2.setFormattedSale(cadFormatter.format(rs.getDouble("cad_sale")));
 
-                            sku2.getPrices().putIfAbsent(pricesUsd2.getCurrency(), pricesUsd2);
                             sku2.getPrices().putIfAbsent(pricesCad2.getCurrency(), pricesCad2);
 
                             product.getSkus().add(sku2);
