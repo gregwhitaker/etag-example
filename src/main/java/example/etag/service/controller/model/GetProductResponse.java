@@ -19,7 +19,13 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import example.etag.service.core.ProductDateFormat;
+import example.etag.service.data.model.Prices;
 import example.etag.service.data.model.Product;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Response object returned when requesting product information.
@@ -36,7 +42,8 @@ import example.etag.service.data.model.Product;
         "startDate",
         "endDate",
         "genderId",
-        "gender"
+        "gender",
+        "skus"
 })
 public class GetProductResponse {
 
@@ -75,6 +82,7 @@ public class GetProductResponse {
     @JsonProperty("end_date") private String endDate;
     @JsonProperty("gender_id") private Integer genderId;
     private String gender;
+    private List<SkuResponse> skus = new ArrayList<>();
 
     public String getId() {
         return id;
@@ -162,5 +170,150 @@ public class GetProductResponse {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public List<SkuResponse> getSkus() {
+        return skus;
+    }
+
+    public void setSkus(List<SkuResponse> skus) {
+        this.skus = skus;
+    }
+
+    /**
+     * Product SKU.
+     */
+    @JsonPropertyOrder({
+            "sku",
+            "active",
+            "colorwayId",
+            "colorway",
+            "size"
+    })
+    static class SkuResponse {
+
+        private String sku;
+        private boolean active;
+        @JsonProperty("colorway_id") private String colorwayId;
+        private String colorway;
+        private String size;
+        private Map<String, PriceResponse> prices = new HashMap<>();
+
+        public String getSku() {
+            return sku;
+        }
+
+        public void setSku(String sku) {
+            this.sku = sku;
+        }
+
+        public boolean isActive() {
+            return active;
+        }
+
+        public void setActive(boolean active) {
+            this.active = active;
+        }
+
+        public String getColorwayId() {
+            return colorwayId;
+        }
+
+        public void setColorwayId(String colorwayId) {
+            this.colorwayId = colorwayId;
+        }
+
+        public String getColorway() {
+            return colorway;
+        }
+
+        public void setColorway(String colorway) {
+            this.colorway = colorway;
+        }
+
+        public String getSize() {
+            return size;
+        }
+
+        public void setSize(String size) {
+            this.size = size;
+        }
+
+        public Map<String, PriceResponse> getPrices() {
+            return prices;
+        }
+
+        public void setPrices(Map<String, PriceResponse> prices) {
+            this.prices = prices;
+        }
+    }
+
+    /**
+     * SKU pricing container.
+     */
+    @JsonPropertyOrder({
+            "list",
+            "msrp",
+            "sale",
+            "formattedList",
+            "formattedMsrp",
+            "formattedSale"
+    })
+    static class PriceResponse {
+
+        private double list;
+        private double msrp;
+        private double sale;
+        private String formattedList;
+        private String formattedMsrp;
+        private String formattedSale;
+
+        public double getList() {
+            return list;
+        }
+
+        public void setList(double list) {
+            this.list = list;
+        }
+
+        public double getMsrp() {
+            return msrp;
+        }
+
+        public void setMsrp(double msrp) {
+            this.msrp = msrp;
+        }
+
+        public double getSale() {
+            return sale;
+        }
+
+        public void setSale(double sale) {
+            this.sale = sale;
+        }
+
+        public String getFormattedList() {
+            return formattedList;
+        }
+
+        public void setFormattedList(String formattedList) {
+            this.formattedList = formattedList;
+        }
+
+        public String getFormattedMsrp() {
+            return formattedMsrp;
+        }
+
+        public void setFormattedMsrp(String formattedMsrp) {
+            this.formattedMsrp = formattedMsrp;
+        }
+
+        public String getFormattedSale() {
+            return formattedSale;
+        }
+
+        public void setFormattedSale(String formattedSale) {
+            this.formattedSale = formattedSale;
+        }
     }
 }
