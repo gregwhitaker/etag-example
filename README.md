@@ -1,6 +1,18 @@
 # etag-example
 An example of shallow E-Tags in Spring Boot.
 
+Shallow E-Tags only provide benefits to the client as they still require the same processing as any other request on the server side.
+
+## Prerequisites
+
+## Building the Example
+Run the following command to build the example application:
+
+    ./gradlew clean build
+    
+## Running the Example
+Follow the steps below to run the example:
+
 ## License
 MIT License
 
