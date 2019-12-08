@@ -1,5 +1,7 @@
 package example.etag.service.controller;
 
+import example.etag.service.controller.model.GetProductResponse;
+import example.etag.service.data.model.Product;
 import example.etag.service.service.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
