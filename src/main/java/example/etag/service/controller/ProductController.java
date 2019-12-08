@@ -29,8 +29,7 @@ public class ProductController {
         Product product = productService.getProduct(id);
 
         if (product != null) {
-            return ResponseEntity.ok()
-                    .body(GetProductResponse.from(product));
+            return ResponseEntity.ok(GetProductResponse.from(product));
         } else {
             return ResponseEntity.notFound().build();
         }
