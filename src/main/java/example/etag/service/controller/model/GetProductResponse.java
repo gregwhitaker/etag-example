@@ -19,7 +19,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import example.etag.service.core.ProductDateFormat;
-import example.etag.service.data.model.Prices;
 import example.etag.service.data.model.Product;
 
 import java.util.ArrayList;
@@ -67,6 +66,29 @@ public class GetProductResponse {
         response.setEndDate(ProductDateFormat.format(product.getEndTime()));
         response.setGenderId(product.getGender().getValue());
         response.setGender(product.getGender().getLabel());
+
+        product.getSkus().forEach(sku -> {
+            SkuResponse skuResponse = new SkuResponse();
+            skuResponse.setSku(sku.getSkuId());
+            skuResponse.setActive(sku.isActive());
+            skuResponse.setColorwayId(sku.getColorwayId());
+            skuResponse.setColorway(sku.getColorway());
+            skuResponse.setSize(sku.getSize());
+
+            sku.getPrices().forEach((s, prices) -> {
+                PriceResponse priceResponse = new PriceResponse();
+                priceResponse.setList(prices.getList());
+                priceResponse.setMsrp(prices.getMsrp());
+                priceResponse.setSale(prices.getSale());
+                priceResponse.setFormattedList(prices.getFormattedList());
+                priceResponse.setFormattedMsrp(prices.getFormattedMsrp());
+                priceResponse.setFormattedSale(prices.getFormattedSale());
+
+                skuResponse.getPrices().putIfAbsent(s, priceResponse);
+            });
+
+            response.getSkus().add(skuResponse);
+        });
 
         return response;
     }
