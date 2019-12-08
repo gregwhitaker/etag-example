@@ -15,8 +15,7 @@
  */
 package example.etag.service.data.model;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -24,16 +23,12 @@ import java.util.Map;
  */
 public class Sku {
 
-    public static Sku from(ResultSet rs) throws SQLException {
-        return null;
-    }
-
     private String skuId;
     private boolean active;
     private String colorwayId;
     private String colorway;
     private String size;
-    private Map<String, Prices> prices;
+    private Map<String, Prices> prices = new HashMap<>();
 
     public String getSkuId() {
         return skuId;

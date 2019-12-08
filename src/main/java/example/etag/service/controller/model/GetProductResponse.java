@@ -56,8 +56,8 @@ public class GetProductResponse {
         response.setShortName(product.getShortName());
         response.setLongName(product.getLongName());
         response.setDescription(product.getDescription());
-        response.setStartDate(ProductDateFormat.format(product.getStartDate()));
-        response.setEndDate(ProductDateFormat.format(product.getEndDate()));
+        response.setStartDate(ProductDateFormat.format(product.getStartTime()));
+        response.setEndDate(ProductDateFormat.format(product.getEndTime()));
         response.setGenderId(product.getGender().getValue());
         response.setGender(product.getGender().getLabel());
 

@@ -15,10 +15,8 @@
  */
 package example.etag.service.data.model;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,18 +24,14 @@ import java.util.List;
  */
 public class Product {
 
-    public static final Product from(ResultSet rs) throws SQLException {
-        return null;
-    }
-
     private String productId;
     private ProductType productType;
     private String shortName;
     private String longName;
     private String description;
     private boolean active;
-    private Date startDate;
-    private Date endDate;
+    private Timestamp startTime;
+    private Timestamp endTime;
     private Gender gender;
     private final List<Sku> skus = new ArrayList<>();
 
@@ -89,20 +83,20 @@ public class Product {
         this.active = active;
     }
 
-    public Date getStartDate() {
-        return startDate;
+    public Timestamp getStartTime() {
+        return startTime;
     }
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
+    public void setStartTime(Timestamp startTime) {
+        this.startTime = startTime;
     }
 
-    public Date getEndDate() {
-        return endDate;
+    public Timestamp getEndTime() {
+        return endTime;
     }
 
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
+    public void setEndTime(Timestamp endTime) {
+        this.endTime = endTime;
     }
 
     public Gender getGender() {

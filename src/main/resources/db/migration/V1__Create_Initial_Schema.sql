@@ -1,25 +1,25 @@
 -- DDL
 
 CREATE TABLE product_types (
-    id      BIGINT          PRIMARY KEY,
+    id      INTEGER         PRIMARY KEY,
     name    VARCHAR(50)     NOT NULL
 );
 
 CREATE TABLE product_genders (
-    id      BIGINT          PRIMARY KEY,
+    id      INTEGER         PRIMARY KEY,
     name    VARCHAR(50)     NOT NULL
 );
 
 CREATE TABLE products (
     id              VARCHAR(50)     PRIMARY KEY,
-    type            BIGINT          REFERENCES product_types(id) NOT NULL,
+    type            INTEGER         REFERENCES product_types(id) NOT NULL,
     active          BOOLEAN         NOT NULL,
     start_time      TIMESTAMP       NOT NULL,
     end_time        TIMESTAMP       NOT NULL,
     short_name      VARCHAR(50)     NOT NULL,
     long_name       VARCHAR(250),
     description     TEXT            NOT NULL,
-    gender          BIGINT          NOT NULL
+    gender          INTEGER         NOT NULL
 );
 
 CREATE TABLE product_skus (
@@ -32,13 +32,13 @@ CREATE TABLE product_skus (
 );
 
 CREATE TABLE sku_prices (
-    sku_id          VARCHAR(50)     REFERENCES product_skus(id) ON DELETE CASCADE,
-    currency_code   VARCHAR(10)     NOT NULL,
-    price_list      NUMERIC         NOT NULL,
-    price_msrp      NUMERIC         NOT NULL,
-    price_sale      NUMERIC         NOT NULL,
-
-    PRIMARY KEY(sku_id, currency_code)
+    sku_id      VARCHAR(50)     PRIMARY KEY REFERENCES product_skus(id) ON DELETE CASCADE,
+    usd_list    NUMERIC,
+    usd_msrp    NUMERIC,
+    usd_sale    NUMERIC,
+    cad_list    NUMERIC,
+    cad_msrp    NUMERIC,
+    cad_sale    NUMERIC
 );
 
 -- Data
@@ -104,47 +104,47 @@ INSERT INTO product_skus (id, product_id, active, colorway_id, colorway, size) V
 INSERT INTO product_skus (id, product_id, active, colorway_id, colorway, size) VALUES ('000-62666', '005', true, '4366796', 'Goldenrod', 'XS');
 INSERT INTO product_skus (id, product_id, active, colorway_id, colorway, size) VALUES ('000-01084', '005', true, '1364367', 'Red', 'S');
 
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-13456', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-43211', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-48168', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-18317', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-13075', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-20239', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-44438', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-77535', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-75902', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-32883', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-45383', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-35327', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-44740', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-75018', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-79514', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-70958', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-87423', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-18636', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-70716', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-79205', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-86593', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-60323', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-63890', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-70306', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-15330', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-46004', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-01667', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-58561', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-27358', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-99606', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-52779', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-73985', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-32346', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-86942', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-85217', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-29384', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-57339', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-52986', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-34982', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-08352', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-69331', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-69809', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-62666', 'USD', 22.99, 28.5, 19.95);
-INSERT INTO sku_prices(sku_id, currency_code, price_list, price_msrp, price_sale) VALUES ('000-01084', 'USD', 22.99, 28.5, 19.95);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-13456', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-43211', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-48168', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-18317', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-13075', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-20239', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-44438', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-77535', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-75902', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-32883', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-45383', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-35327', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-44740', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-75018', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-79514', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-70958', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-87423', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-18636', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-70716', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-79205', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-86593', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-60323', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-63890', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-70306', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-15330', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-46004', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-01667', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-58561', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-27358', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-99606', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-52779', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-73985', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-32346', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-86942', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-85217', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-29384', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-57339', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-52986', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-34982', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-08352', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-69331', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-69809', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-62666', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
+INSERT INTO sku_prices(sku_id, usd_list, usd_msrp, usd_sale, cad_list, cad_msrp, cad_sale) VALUES ('000-01084', 22.99, 28.5, 19.95, 32.5, 35.99, 22.99);
