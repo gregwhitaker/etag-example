@@ -14,6 +14,9 @@ import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
 
+/**
+ * Database configuration.
+ */
 @Configuration
 @EnableConfigurationProperties({
         DatabaseSettings.class
