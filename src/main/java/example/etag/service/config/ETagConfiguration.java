@@ -9,7 +9,7 @@ import org.springframework.web.filter.ShallowEtagHeaderFilter;
  * E-Tag filter configuration.
  */
 @Configuration
-public class EtagConfiguration {
+public class ETagConfiguration {
 
     @Bean
     public FilterRegistrationBean<ShallowEtagHeaderFilter> shallowEtagHeaderFilter() {
