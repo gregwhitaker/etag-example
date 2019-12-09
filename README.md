@@ -8,7 +8,7 @@ This example requires a running PostgreSQL database.
 
 You can start an instance as a Docker container by running the following command:
 
-    docker run -p 5432:5432 postgres
+    docker run -d -p 5432:5432 postgres
 
 ## Building the Example
 Run the following command to build the example application as a Docker image:
