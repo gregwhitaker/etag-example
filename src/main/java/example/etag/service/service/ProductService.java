@@ -7,6 +7,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+/**
+ * Service for querying and modifying product information.
+ */
 @Service
 public class ProductService {
     private static final Logger LOG = LoggerFactory.getLogger(ProductService.class);

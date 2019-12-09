@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Controller for querying and modifying products.
+ */
 @RestController
 public class ProductController {
     private static final Logger LOG = LoggerFactory.getLogger(ProductController.class);
