@@ -139,7 +139,34 @@ public class ProductDao {
                 }
             }
         } catch (SQLException e) {
-            throw new RuntimeException(String.format("Error retrieving product from database [productId: '%s']", id));
+            throw new RuntimeException(String.format("Error retrieving product [id: '%s']", id));
+        }
+    }
+
+    /**
+     * Sets the active state of the product.
+     *
+     * @param id product identifier
+     * @param active new state
+     * @return the product information if found and updated; otherwise <code>null</code>
+     */
+    public Product setProductState(String id, boolean active) {
+        try (Connection conn = dataSource.getConnection()) {
+            final String sql = "UPDATE products SET active = ? WHERE id = ?";
+
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setBoolean(1, active);
+                ps.setString(2, id);
+
+                if (ps.executeUpdate() != 1) {
+                    // No product found to update
+                    return null;
+                } else {
+                    return getProduct(id);
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(String.format("Error setting product state [id: '%s', active: '%s']", id, active));
         }
     }
 }

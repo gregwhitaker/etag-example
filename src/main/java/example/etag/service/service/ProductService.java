@@ -31,4 +31,34 @@ public class ProductService {
 
         return productDao.getProduct(id);
     }
+
+    /**
+     * Sets the product to the active state.
+     *
+     * @param id product identifier
+     * @return the product information if found; otherwise <code>null</code>
+     */
+    public Product activateProduct(String id) {
+        if (StringUtils.isEmpty(id)) {
+            LOG.warn("Received request to retrieve product with empty id");
+            return null;
+        }
+
+        return productDao.setProductState(id, true);
+    }
+
+    /**
+     * Sets the product to the inactive state.
+     *
+     * @param id product identifier
+     * @return the product information if found; otherwise <code>null</code>
+     */
+    public Product deactivateProduct(String id) {
+        if (StringUtils.isEmpty(id)) {
+            LOG.warn("Received request to retrieve product with empty id");
+            return null;
+        }
+
+        return productDao.setProductState(id, false);
+    }
 }
