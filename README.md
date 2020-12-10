@@ -1,4 +1,6 @@
 # etag-example
+![Build](https://github.com/gregwhitaker/etag-example/workflows/Build/badge.svg)
+
 An example of shallow ETags in Spring Boot.
 
 Shallow ETags only provide benefits to the client as they still require the same processing as any other request on the server side.
